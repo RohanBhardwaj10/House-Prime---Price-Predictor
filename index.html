@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Price Prediction</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Helvetica:wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family:'Montserrat', Arial, sans-serif;
+            color: #333;
+            height: auto;
+            overflow: auto;
+            background-image: linear-gradient(to right, #0c0604, #8b47b5); /* Gradient background */
+            background-size: cover; /* Ensure the gradient covers the entire background */
+            background-position: center; /* Center the gradient */
+            background-repeat: no-repeat; /* Prevent repeating the gradient */
+            
+        }
+    .navbar {
+    background-color: white;
+    padding: 10px;
+    color: #333;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    width: 60%; /* Decrease the width of the navbar */
+    max-width: 800px; /* Set a max-width for larger screens */
+    left: 20%; /* Center the navbar horizontally */
+    z-index: 1000;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Optional: Add shadow for better visibility */
+    margin-bottom: 10px; /* Add space below the navbar */
+}
+
+        .navbar a {
+            color: #333;
+            text-decoration: none;
+            padding: 14px 20px;
+            display: inline-block;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        .navbar a:hover {
+            background-color: #f0f0f0; /* Light grey background on hover */
+            border-radius: 5px;
+        }
+        .navbar img {
+            height: 20px; /* Adjust the height of the logo */
+            margin-left: 20px; /* Space between the logo and the edge of the navbar */
+        }
+
+        /* Introduction styling */
+          .introduction {
+            
+            text-align: center;
+            padding: 80px 20px 20px; /* Adjusted padding to account for fixed navbar */
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            max-width: 600px;
+            margin: 100px auto 20px;           
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            font-family: 'Montserrat', sans-serif; /* Change font to Montserrat */
+        }
+          
+        .introduction h2 {
+            font-size: 2.5em; /* Increase the font size of the heading in introduction class */
+            margin-bottom: 20px; /* Add some space below the heading */
+        }
+
+        /* Content container */
+        .container {
+            position: relative;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 600px;
+            margin: 50px auto;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+            overflow: hidden; /* Hide any overflow from the video */
+        }
+        .container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1; /* Ensure the video is behind the content */
+        }
+
+        /* Content styling */
+        .content {
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.8); /* Transparent white background for readability */
+            padding: 20px;
+            border-radius: 10px;
+            z-index: 1; /* Ensure content is on top of the video */
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        h1::before {
+            content: '🏡'; /* Example icon or text */
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: -30px; /* Position above the heading */
+            font-size: 2em; /* Size of the icon or text */
+            color: #007BFF; /* Color of the icon or text */
+        }
+
+        p {
+            text-align: center;
+            font-size: 1.1em;
+            margin-bottom: 20px;
+        }
+
+        
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px; /* Gap between elements */
+        }
+
+        .form-group {
+            flex-basis: 45%; /* Make form groups take up 45% of the row, allowing two per row */
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: #555;
+            font-size: 1em;
+            display: block;
+            margin-bottom: 5px;
+            transition: color 0.3s, font-size 0.3s;
+        }
+
+        .form-group .label-title {
+            font-size: 0.9em; /* Slightly smaller font size for titles */
+            color: #007BFF; /* Color for titles */
+            margin-bottom: 5px; /* Space between title and label */
+        }
+
+        .form-group input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+
+        label {
+            flex-basis: 45%; /* Make labels take up 45% of the row, allowing two per row */
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: #555;
+            font-size: 1em;
+            margin-bottom: 10px;
+            display: block;
+            transition: color 0.3s, font-size 0.3s;
+        }
+
+        input[type="text"] {
+            flex-basis: 45%;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        input[type="submit"] {
+            flex-basis: 100%;
+            padding: 15px;
+            background: linear-gradient(to right, #007BFF, #0056b3);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 700;
+            transition: background 0.3s, box-shadow 0.3s;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        input[type="submit"]:hover {
+            background: linear-gradient(to right, #0056b3, #cad6e2);
+            box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.3);
+        }
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="nav_links">
+
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+        </div>        
+    </div>
+  
+    <div class="introduction">
+        <h2><b>HOUSE PRIME </b></h2>
+        <p>Welcome to our House Price Predictor App!</p>
+        Are you curious about the market value of your property? You've come to the right place! By providing a few details about your property, our advanced model will give you an estimated market price based on current trends and data.
+        Simply fill out the form below with the relevant information about your house, and let our predictive model do the rest.
+       <p> For categorical inputs like amenities, use '1' for 'YES' and '0' for 'NO'.</p>
+        Get started now and discover the estimated value of your property in just a few clicks!.</p>
+    
+    </div>
+
+    <!-- Content Container -->
+    
+    
+        <div class="content">
+    <h1>Let's Predict!</h1>
+        <form action="/predict" method="post">
+            <label for="Price_sqft">Price_sqft:</label>
+            <input type="text" id="Price_sqft" name="Price_sqft"><br>
+            <label for="Bedrooms">Bedrooms:</label>
+            <input type="text" id="Bedrooms" name="Bedrooms"><br>
+            <label for="Bathrooms">Bathrooms:</label>
+            <input type="text" id="Bathrooms" name="Bathrooms"><br>
+            <label for="Lift"> Lift :</label>
+            <input type="text" id="Lift" name="Lift"><br>
+            <label for="parking">parking:</label>
+            <input type="text" id="parking" name="parking"><br>
+            <label for="Flat">Flat:</label>
+            <input type="text" id="Flat" name="Flat"><br>
+            <label for="Balcony">Balcony :</label>
+            <input type="text" id="Balcony" name="Balcony"><br>
+            <label for="Resale">Resale :</label>
+            <input type="text" id="Resale" name="Resale"><br>
+            <label for="Furnished">Furnished:</label>
+            <input type="text" id="Furnished" name="Furnished"><br>
+            <label for="Semi-Furnished">Semi-Furnished:</label>
+            <input type="text" id="Semi-Furnished" name="Semi-Furnished"><br>
+            <label for="Unfurnished">Unfurnished:</label>
+            <input type="text" id="Unfurnished" name="Unfurnished"><br>
+            <label for="longitude">longitude:</label>
+            <input type="text" id="longitude" name="longitude"><br>
+            <label for="latitude">latitude:</label>
+            <input type="text" id="latitude" name="latitude"><br>
+            <label for="area">area:</label>
+            <input type="text" id="area" name="area"><br>
+            <label for="Individual House">Individual Houses:</label>
+            <input type="text" id="Individual House" name="Individual House"><br>
+            <label for="New Property">New Property:</label>
+            <input type="text" id="New Property" name="New Property"><br>
+            <input type="submit" value="Predict">
+        </form>
+
+        
+    </div>
+</div>
+</body>
+</html>
+
