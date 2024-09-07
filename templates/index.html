@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOUSE PRICE PREDICTION </title>
+    <link href="https://fonts.googleapis.com/css2?family=Emerald+Serif:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Emerald+Serif:wght@400;700&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        html, body {
+    height: 100%;
+    margin: 0;
+}
+        body {
+            margin: 0;
+            font-family: 'Raleway', serif; /* Apply Emerald Serif font */
+            height: 100vh;
+            background: linear-gradient(270deg, #abf4a0, #f3abe3, #9dd8fc, #d4f89f); /* Initial gradient colors */
+            background-size: 800% 800%; /* Make the gradient large enough for a smooth transition */
+            animation: gradientAnimation 10s ease infinite; /* Animation that runs infinitely */
+        }
+         /* Keyframes for animated gradient */
+         @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+             background-color: rgb(7, 6, 6);
+             padding: 20px;
+             border-bottom: 2px solid #ccc;
+         position: fixed;
+         top: 0;
+         width: 100%;
+         z-index: 10; /* Ensure navbar is above the sidebar */
+        }
+
+        .navbar-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 50px;
+            font-weight: bold;
+            font-style: bold;
+            color: #f3ebf9; /* Change the color here */
+            margin-left: 20px;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 15px 20px;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+        .navbar a:hover {
+            background-color: #555;
+            border-radius: 5px;
+        }
+        .cont{
+            display: flex;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 120px auto 60px; /* Adjust margin-top for space below navbar */
+            background-color: rgba(245, 239, 239, 0.8); /* Transparent white background */
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-top: 120px; /* Adjust as necessary to add space */
+            margin-left: 550px;
+
+        }
+        .sidebar {
+            width: 200px;
+        height: calc(100vh - 100px); /* Adjust height to exclude navbar height */
+        background-color: #050205e0;
+        color: #0c080b;
+        box-sizing: border-box;
+        position: fixed;
+        top: 100px; /* Start the sidebar just below the navbar */
+        left: 0;
+        z-index: 5;
+            
+        }
+        .sidebar a {
+            display: flex;
+            align-items: center; /* Align icon and text vertically */
+            color: #fdf3fd;
+            text-decoration: none;
+            padding: 10px;
+            margin-bottom: 10px;
+            transition: background-color 0.3s;
+            font-size: 18px; /* Adjust this value to increase the size of the links */
+        }
+        .sidebar a i {
+    margin-right: 15px; /* Adjust this value to increase space between icon and text */
+    font-size: 20px; /* Adjust icon size if needed */
+}
+
+        /* Change background color on hover */
+        .sidebar a:hover {
+            background-color: #2980b9;
+        }
+        h1 {
+            text-align: center; /* Center-align the title */
+            margin-bottom: 20px; /* Optional: Adds some space below the title */
+        }
+        .form-group {
+            display: flex;
+            flex-wrap: wrap; /* Allows items to wrap into multiple lines if necessary */
+            gap: 10px; /* Space between buttons */
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            box-sizing: border-box;
+            border-radius: 8px; /* Rounded corners */
+            border: 1px solid #ccc;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        .form-group button {
+            flex: 1 1 calc(50% - 10px); /* Adjust the width to fit two buttons per row with gap */
+            padding: 12px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px; /* Rounded corners */
+            transition: background-color 0.3s ease;
+        }
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .about-section {
+            padding: 20px;
+            margin-top: 10px;
+            text-align: center;
+        }
+        .about-section h3 {
+            font-size: 2em; /* Increase the font size */
+            background-color: rgba(231, 229, 229, 0.8);
+            padding: 10px; /* Increase padding for a larger background */
+            border-radius: 5px; /* Optional: Rounded corners for the background */
+            /*display: inline-block; /* Ensure the background only covers the text */
+            margin-bottom: 20px; /* Space below the heading */
+        }
+        .social-icons {
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            text-decoration: none;
+            color: #333;
+            margin: 0 10px;
+            font-size: 24px;
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #007bff;
+        }
+        footer {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            text-align: center;
+            border-radius: 15px;
+            margin-top: 10px;
+            margin-left: 220px; /* Adjust margin to move the footer to the right */
+            max-width: calc(100% - 220px); /* Ensure the footer does not exceed the remaining width */
+            box-sizing: border-box; 
+            margin-right: 50px;
+        }
+    
+</style>
+        
+</head>
+<body>
+    <div class="navbar">
+        <span class="navbar-title"> House Prime</span>
+    </div>
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <a href="#home"><i class="fas fa-home"></i><b> Home</b></a>
+            <a href="#about"><i class="fas fa-circle"></i><b> About</b></a>
+            <a href="#Contact"><i class="fas fa-envelope"></i><b> Contact</b></a>
+        </div>
+
+    <div class="container">
+        <div id ="home">
+        <h1>House Price Prediction</h1>
+        <form action="/predict" method="post">
+            <div class="form-group">
+                <label for="Price_sqft">Price per Sqft</label>
+                <input type="number" id="Price_sqft" name="Price_sqft" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="Bedrooms">Number of Bedrooms</label>
+                <input type="number" id="Bedrooms" name="Bedrooms" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="Bathrooms">Number of Bathrooms</label>
+                <input type="number" id="Bathrooms" name="Bathrooms" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="Lift">Lift (1 if present, 0 otherwise)</label>
+                <input type="number" id="Lift" name="Lift" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="parking">Parking Spaces</label>
+                <input type="number" id="parking" name="parking" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="Flat">Flat (1 if present, 0 otherwise)</label>
+                <input type="number" id="Flat" name="Flat" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="Balcony">Balcony</label>
+                <input type="number" id="Balcony" name="Balcony" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="Resale">Resale (1 if applicable, 0 otherwise)</label>
+                <input type="number" id="Resale" name="Resale" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="Furnished">Furnished (1 if applicable, 0 otherwise)</label>
+                <input type="number" id="Furnished" name="Furnished" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="Semi-Furnished">Semi-Furnished (1 if applicable, 0 otherwise)</label>
+                <input type="number" id="Semi-Furnished" name="Semi-Furnished" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="Unfurnished">Unfurnished (1 if applicable, 0 otherwise)</label>
+                <input type="number" id="Unfurnished" name="Unfurnished" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="New Property">New Property (1 if applicable, 0 otherwise)</label>
+                <input type="number" id="New Property" name="New Property" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="Individual House">Individual House (1 if applicable, 0 otherwise)</label>
+                <input type="number" id="Individual House" name="Individual House" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="area">Area (in sqft)</label>
+                <input type="number" id="area" name="area" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="longitude">Longitude</label>
+                <input type="number" id="longitude" name="longitude" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="latitude">Latitude</label>
+                <input type="number" id="latitude" name="latitude" step="any" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Predict Price</button>
+            </div>
+        </form>
+
+        <!-- Display prediction result here -->
+        <div class="result">
+            {% if prediction_text %}
+            <p>{{ prediction_text }}</p>
+        {% endif %}
+        </div>
+    </div>
+    </div>
+    <footer>
+        <div class="about-section">
+            <div id = "about">
+            <h3>ABOUT US </h3>
+            <p>Welcome to our House Price Prediction web application! This tool is designed to help homeowners, buyers</p>
+            <p>and real estate professionals estimate property prices based on multiple factors such as square footage, number of bedrooms and bathrooms, location coordinates</p>
+            <p>and various property features. The app uses advanced machine learning models like Linear Regression and Random Forest, trained on a robust dataset to provide accurate predictions.</p>
+            <p>CREATOR : Rohan Bhardwaj </p> </div>
+            <div id = "Contact">
+            <div class="social-icons">
+                <b>Socials :</b>
+                <a href="https://www.instagram.com/rohan.bhardwaj__/" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.linkedin.com/in/rohan-bhardwaj-b92b7a264/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="bhardwajrohan10@gmail.com" target="_blank"><i class="fab fa-google"></i></a>
+            </div>
+            </div>
+            
+        </div>
+    </footer>
+
+
+</body>
+</html>
